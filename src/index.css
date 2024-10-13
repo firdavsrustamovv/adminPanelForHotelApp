@@ -5,37 +5,10 @@ body {
     sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-}
-
-* {
-  background-color: rgb(56, 56, 110);
+  background-color: rgba(0, 0, 0, 0.584);
 }
 
 code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, "Courier New",
     monospace;
-}
-
-.container {
-  margin-top: 50px;
-}
-img {
-  width: 300px;
-  height: 192px;
-  border-radius: 10px;
-}
-p {
-  font-size: 15px;
-  text-align: center;
-  color: white;
-}
-.gallery {
-  display: flex;
-  justify-content: center;
-  gap: 10px;
-  flex-wrap: wrap;
-}
-h1 {
-  text-align: center;
-  color: white;
 }
