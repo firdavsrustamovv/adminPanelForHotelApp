@@ -1,27 +1,25 @@
-import { useState } from "react";
-import Gradient from "./components/gradient/gradient";
+import { Route, Routes } from "react-router-dom";
+import AdminPanel from "./pages/adminPanel";
+import SideBar from "./components/sideBar";
+import UsersPage from "./pages/usersPage";
+import Rooms from "./pages/rooms";
+import AddRooms from "./pages/addRooms";
+import { Stack } from "@mui/material";
+import BookedRooms from "./pages/dashboard";
 
-function App() {
-  const [gradient1, setGradient1] = useState(Math.floor(Math.random() * 256));
-  const [gradient2, setGradient2] = useState(Math.floor(Math.random() * 256));
-  const [gradient3, setGradient3] = useState(Math.floor(Math.random() * 256));
-
-  const changeGradient = () => {
-    setGradient1(Math.floor(Math.random() * 256));
-    setGradient2(Math.floor(Math.random() * 256));
-    setGradient3(Math.floor(Math.random() * 256));
-  };
-
+const App: React.FC = () => {
   return (
-    <div>
-      <Gradient
-        firstColor={gradient1}
-        secondColor={gradient2}
-        thirdColor={gradient3}
-        changeGradient={changeGradient}
-      />
-    </div>
+    <Stack flexDirection={"row"} justifyContent={"center"}>
+      <SideBar />
+      <Routes>
+        <Route path="/" element={<AdminPanel />} />
+        <Route path="booked" element={<BookedRooms />} />
+        <Route path="users" element={<UsersPage />} />
+        <Route path="rooms" element={<Rooms />} />
+        <Route path="addrooms" element={<AddRooms />} />
+      </Routes>
+    </Stack>
   );
-}
+};
 
 export default App;
