@@ -5,18 +5,31 @@ import { useEffect, useState } from "react";
 
 export interface DataUsers {
   id: number;
-  name: string;
-  lastName: string;
-  email: string;
-  phoneNumber: string;
-  price: string;
-  checkIn: string;
-  checkOut: string;
-  totalRoom: string;
+  name?: string;
+  lastName?: string;
+  email?: string;
+  phoneNumber?: string;
+  price?: string;
+  checkIn?: string;
+  checkOut?: string;
+  totalRoom?: string;
   totalGuest?: string;
   codeRefferal?: string;
-  room_name: string;
+  room_name?: string;
 }
+const tableName = [
+  "Id",
+  "Familya",
+  "Ism",
+  "Email",
+  "Telefon raqam",
+  "Xona nomi",
+  "Xona narxi",
+  "Tashrif buyuruvchilar",
+  "Kirish vaqti",
+  "Chiqish vaqti",
+];
+
 const SUPABASE_URL = process.env.REACT_APP_SUPABASE_URL as string;
 const SUPABASE_KEY = process.env.REACT_APP_SUPABASE_KEY as string;
 const supabase: SupabaseClient = createClient(SUPABASE_URL, SUPABASE_KEY);
@@ -29,7 +42,6 @@ const BookedRooms = () => {
         throw error;
       }
       setUsersData(data || []);
-      console.log(usersData);
     } catch (error) {
       console.log("Error message", error);
     }
@@ -44,7 +56,7 @@ const BookedRooms = () => {
           Booked Rooms
         </Typography>
         <Stack>
-          <Tables data={usersData} />
+          <Tables data={usersData} tableName={tableName} />
         </Stack>
       </Stack>
     </Container>
