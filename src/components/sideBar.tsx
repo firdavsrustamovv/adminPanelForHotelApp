@@ -20,19 +20,19 @@ import { useNavigate } from "react-router-dom";
 const SideBar: React.FC = () => {
   const navigate = useNavigate();
   const menuItems = [
-    { text: "Booked Rooms", icon: <DashboardIcon />, path: "/booked" },
-    { text: "Users", icon: <CustomersIcon />, path: "/users" },
-    { text: "Rooms", icon: <ProductSizesIcon />, path: "/rooms" },
-    { text: "Add Rooms", icon: <CategoryIcon />, path: "/addRooms" },
+    { text: "Band xonalar", icon: <DashboardIcon />, path: "/booked" },
+    { text: "Foydalanuvchilar", icon: <CustomersIcon />, path: "/users" },
+    { text: "Xonalar", icon: <ProductSizesIcon />, path: "/rooms" },
+    { text: "Xona qo'shish", icon: <CategoryIcon />, path: "/addRooms" },
   ];
 
   return (
     <Drawer
       variant="permanent"
       sx={{
-        width: 240,
+        width: 250,
         "& .MuiDrawer-paper": {
-          width: 240,
+          width: 250,
           boxSizing: "border-box",
           backgroundColor: "#3E3E3E",
           color: "#FFF",
@@ -44,7 +44,7 @@ const SideBar: React.FC = () => {
           sx={{ width: 80, height: 80, margin: "0 auto", bgcolor: "#5A5A5A" }}
         />
         <Typography variant="h6" style={{ marginTop: "8px" }}>
-          Hello, {"Admin"}
+          Salom, {"Admin"}
         </Typography>
       </div>
       <List>

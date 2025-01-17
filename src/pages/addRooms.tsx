@@ -3,6 +3,10 @@ import TextField from "@mui/material/TextField";
 import { useForm, SubmitHandler } from "react-hook-form";
 import { SupabaseClient, createClient } from "@supabase/supabase-js";
 import { useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import Loader from "../components/Loader";
+import { RootState } from "../store/store";
+import { startLoading, stopLoading } from "../slice/loaderSlice";
 
 interface IFormInput {
   xonaNomi: string;
@@ -23,8 +27,11 @@ const AddRooms = () => {
   const [errorSnackbar, setErrorSnackbar] = useState(false);
   const handleCloseSnackbar = () => setOpenSnackbar(false);
   const handleCloseErrorSnackbar = () => setErrorSnackbar(false);
+  const loading = useSelector((state: RootState) => state.loader.isLoading);
+  const dispatch = useDispatch();
   const onSubmit: SubmitHandler<IFormInput> = async (val) => {
     try {
+      dispatch(startLoading());
       const { data, error } = await supabase
         .from("roomsForHotel")
         .insert([
@@ -38,6 +45,7 @@ const AddRooms = () => {
           },
         ])
         .select("*");
+      dispatch(stopLoading());
       if (error) throw error;
       setOpenSnackbar(true);
       reset();
@@ -48,6 +56,7 @@ const AddRooms = () => {
   };
   return (
     <div>
+      {loading && <Loader />}
       <Typography variant="h3" mt={1} textAlign={"center"}>
         Xona qo'shish
       </Typography>

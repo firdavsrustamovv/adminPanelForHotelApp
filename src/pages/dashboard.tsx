@@ -2,6 +2,10 @@ import Tables from "../components/tables";
 import { Container, Stack, Typography } from "@mui/material";
 import { createClient, SupabaseClient } from "@supabase/supabase-js";
 import { useEffect, useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import Loader from "../components/Loader";
+import { RootState } from "../store/store";
+import { startLoading, stopLoading } from "../slice/loaderSlice";
 
 export interface DataUsers {
   id: number;
@@ -35,9 +39,13 @@ const SUPABASE_KEY = process.env.REACT_APP_SUPABASE_KEY as string;
 const supabase: SupabaseClient = createClient(SUPABASE_URL, SUPABASE_KEY);
 const BookedRooms = () => {
   const [usersData, setUsersData] = useState<DataUsers[]>([]);
+  const loading = useSelector((state: RootState) => state.loader.isLoading);
+  const dispatch = useDispatch();
   const fetchData = async () => {
     try {
+      dispatch(startLoading());
       const { data, error } = await supabase.from("bookingRoom").select("*");
+      dispatch(stopLoading());
       if (error) {
         throw error;
       }
@@ -51,9 +59,10 @@ const BookedRooms = () => {
   }, []);
   return (
     <Container>
+      {loading && <Loader />}
       <Stack direction={"column"} gap={"20px"} mt={5}>
         <Typography textAlign={"center"} variant="h2">
-          Booked Rooms
+          Band Xonalar
         </Typography>
         <Stack>
           <Tables data={usersData} tableName={tableName} />
