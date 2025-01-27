@@ -55,7 +55,7 @@ const AddRooms = () => {
     }
   };
   return (
-    <div>
+    <Stack>
       {loading && <Loader />}
       <Typography variant="h3" mt={1} textAlign={"center"}>
         Xona qo'shish
@@ -138,7 +138,7 @@ const AddRooms = () => {
           Xona qo'shishda xatolik yuz berdi!
         </Alert>
       </Snackbar>
-    </div>
+    </Stack>
   );
 };
 

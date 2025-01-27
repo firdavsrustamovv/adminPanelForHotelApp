@@ -8,7 +8,7 @@ import Loader from "../components/Loader";
 import { RootState } from "../store/store";
 import { startLoading, stopLoading } from "../slice/loaderSlice";
 
-const tableName = ["Id", "Xona nomi", "Ma'lumot", "Narx"];
+const tableName = ["No", "Xona nomi", "Ma'lumot", "Narx"];
 const SUPABASE_URL = process.env.REACT_APP_SUPABASE_URL as string;
 const SUPABASE_KEY = process.env.REACT_APP_SUPABASE_KEY as string;
 const supabase: SupabaseClient = createClient(SUPABASE_URL, SUPABASE_KEY);

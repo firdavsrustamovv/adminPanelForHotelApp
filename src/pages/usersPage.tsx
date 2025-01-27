@@ -16,7 +16,7 @@ export interface DataUsers {
   infomation?: string;
   price?: string;
 }
-const tableName = ["Id", "Ism", "Email", "Role"];
+const tableName = ["No", "Ism", "Email", "Role"];
 
 const SUPABASE_URL = process.env.REACT_APP_SUPABASE_URL as string;
 const SUPABASE_KEY = process.env.REACT_APP_SUPABASE_KEY as string;

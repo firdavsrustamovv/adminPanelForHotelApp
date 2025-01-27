@@ -24,6 +24,7 @@ const SideBar: React.FC = () => {
   const location = useLocation();
 
   const menuItems = [
+    { text: "Dashboard", icon: <DashboardIcon />, path: "/" },
     { text: "Band xonalar", icon: <DashboardIcon />, path: "/booked" },
     { text: "Foydalanuvchilar", icon: <CustomersIcon />, path: "/users" },
     { text: "Xonalar", icon: <ProductSizesIcon />, path: "/rooms" },

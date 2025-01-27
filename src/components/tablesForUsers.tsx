@@ -45,7 +45,7 @@ const TablesForUsers = ({
               </TableRow>
             </TableHead>
             <TableBody>
-              {data.map((product) => (
+              {data.map((product, idx) => (
                 <TableRow
                   key={product.id}
                   sx={{
@@ -54,7 +54,8 @@ const TablesForUsers = ({
                     },
                   }}
                 >
-                  <TableCell align="center">{product.id}</TableCell>
+                  <TableCell align="center">{idx + 1}</TableCell>
+
                   <TableCell align="center">
                     {product.name || product.title}
                   </TableCell>
@@ -62,7 +63,7 @@ const TablesForUsers = ({
                     {product.email || product.infomation}
                   </TableCell>
                   <TableCell align="center">
-                    {product.role || product.price}
+                    {product.role || product.price} {product.price ? "$" : ""}
                   </TableCell>
                 </TableRow>
               ))}
