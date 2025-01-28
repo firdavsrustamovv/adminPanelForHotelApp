@@ -8,16 +8,67 @@ import {
   TableHead,
   TableRow,
   Paper,
+  Button,
+  Dialog,
+  DialogActions,
+  DialogContent,
+  DialogContentText,
+  DialogTitle,
 } from "@mui/material";
 import { DataUsers } from "../pages/dashboard";
+import { useState } from "react";
+import { createClient, SupabaseClient } from "@supabase/supabase-js";
+const SUPABASE_URL = process.env.REACT_APP_SUPABASE_URL as string;
+const SUPABASE_KEY = process.env.REACT_APP_SUPABASE_KEY as string;
+const supabase: SupabaseClient = createClient(SUPABASE_URL, SUPABASE_KEY);
 
 const Tables = ({
   data,
   tableName,
+  refetch,
+  deletedTableName,
 }: {
   data: DataUsers[];
   tableName: string[];
+  deletedTableName: string;
+  refetch: () => void;
 }) => {
+  const [open, setOpen] = useState(false);
+  const [idToDelete, setidToDelete] = useState<number | null>(null);
+
+  const handleClickOpen = (id: number) => {
+    setidToDelete(id);
+    setOpen(true);
+  };
+  const handleClose = () => {
+    setOpen(false);
+    setidToDelete(null);
+  };
+  const deleteHandler = async (
+    deletingTableName: string,
+    idToDelete: number | null
+  ) => {
+    if (idToDelete === null) return;
+    try {
+      const { data, error } = await supabase
+        .from(deletingTableName)
+        .delete()
+        .eq("id", idToDelete);
+      console.log(data);
+
+      if (!error) {
+        console.log("Deleted successfully!");
+
+        handleClose();
+        refetch();
+      } else {
+        console.log(error.message);
+      }
+    } catch (error) {
+      console.log("error deleting");
+    }
+  };
+
   return (
     <Container>
       <Stack>
@@ -48,7 +99,9 @@ const Tables = ({
               {data.map((product) => (
                 <TableRow
                   key={product.id}
+                  onClick={() => handleClickOpen(product.id)}
                   sx={{
+                    cursor: "pointer",
                     "&:hover": {
                       bgcolor: "#2e2e2e1a",
                     },
@@ -70,6 +123,27 @@ const Tables = ({
           </Table>
         </TableContainer>
       </Stack>
+      <>
+        <Dialog
+          open={open}
+          onClose={handleClose}
+          aria-labelledby="alert-dialog-title"
+          aria-describedby="alert-dialog-description"
+        >
+          <DialogTitle id="alert-dialog-title">{"DIQQAT"}</DialogTitle>
+          <DialogContent>
+            <DialogContentText id="alert-dialog-description">
+              Ushbu bron bo'lgan xonani o'chirmoqchimisiz
+            </DialogContentText>
+          </DialogContent>
+          <DialogActions>
+            <Button onClick={handleClose}>YOQ</Button>
+            <Button onClick={() => deleteHandler(deletedTableName, idToDelete)}>
+              XA
+            </Button>
+          </DialogActions>
+        </Dialog>
+      </>
     </Container>
   );
 };

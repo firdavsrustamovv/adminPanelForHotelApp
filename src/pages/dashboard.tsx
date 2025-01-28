@@ -6,6 +6,7 @@ import { useDispatch, useSelector } from "react-redux";
 import Loader from "../components/Loader";
 import { RootState } from "../store/store";
 import { startLoading, stopLoading } from "../slice/loaderSlice";
+import { bookingRoomData } from "../slice/bookingSlice";
 
 export interface DataUsers {
   id: number;
@@ -40,6 +41,9 @@ const supabase: SupabaseClient = createClient(SUPABASE_URL, SUPABASE_KEY);
 const BookedRooms = () => {
   const [usersData, setUsersData] = useState<DataUsers[]>([]);
   const loading = useSelector((state: RootState) => state.loader.isLoading);
+  const bookingData = useSelector(
+    (state: RootState) => state.booked.bookingRoomData
+  );
   const dispatch = useDispatch();
   const fetchData = async () => {
     try {
@@ -49,14 +53,15 @@ const BookedRooms = () => {
       if (error) {
         throw error;
       }
-      setUsersData(data || []);
+      // setUsersData(data || []);
+      dispatch(bookingRoomData(data || []));
     } catch (error) {
       console.log("Error message", error);
     }
   };
   useEffect(() => {
     fetchData();
-  }, []);
+  }, [dispatch]);
   return (
     <Container>
       {loading && <Loader />}
@@ -65,7 +70,12 @@ const BookedRooms = () => {
           Band Xonalar
         </Typography>
         <Stack>
-          <Tables data={usersData} tableName={tableName} />
+          <Tables
+            data={bookingData}
+            tableName={tableName}
+            refetch={fetchData}
+            deletedTableName={"bookingRoom"}
+          />
         </Stack>
       </Stack>
     </Container>
