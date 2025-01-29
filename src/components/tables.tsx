@@ -17,6 +17,7 @@ import {
 } from "@mui/material";
 import { DataUsers } from "../pages/dashboard";
 import { useState } from "react";
+import DeleteIcon from "@mui/icons-material/Delete";
 import { createClient, SupabaseClient } from "@supabase/supabase-js";
 const SUPABASE_URL = process.env.REACT_APP_SUPABASE_URL as string;
 const SUPABASE_KEY = process.env.REACT_APP_SUPABASE_KEY as string;
@@ -50,11 +51,10 @@ const Tables = ({
   ) => {
     if (idToDelete === null) return;
     try {
-      const { data, error } = await supabase
+      const { error } = await supabase
         .from(deletingTableName)
         .delete()
         .eq("id", idToDelete);
-      console.log(data);
 
       if (!error) {
         console.log("Deleted successfully!");
@@ -76,7 +76,7 @@ const Tables = ({
           component={Paper}
           sx={{ maxWidth: "100%", overflowX: "auto" }}
         >
-          <Table sx={{ minWidth: 1700 }} aria-label="product table">
+          <Table sx={{ minWidth: 1850 }} aria-label="product table">
             <TableHead sx={{ bgcolor: "#3E3E3E" }}>
               <TableRow
                 sx={{
@@ -117,6 +117,7 @@ const Tables = ({
                   <TableCell align="center">{product.totalGuest}</TableCell>
                   <TableCell align="center">{product.checkIn}</TableCell>
                   <TableCell align="center">{product.checkOut}</TableCell>
+                  <TableCell align="center">{<DeleteIcon />}</TableCell>
                 </TableRow>
               ))}
             </TableBody>

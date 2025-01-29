@@ -33,13 +33,13 @@ const tableName = [
   "Tashrif buyuruvchilar",
   "Kirish vaqti",
   "Chiqish vaqti",
+  `O'chirish`,
 ];
 
 const SUPABASE_URL = process.env.REACT_APP_SUPABASE_URL as string;
 const SUPABASE_KEY = process.env.REACT_APP_SUPABASE_KEY as string;
 const supabase: SupabaseClient = createClient(SUPABASE_URL, SUPABASE_KEY);
 const BookedRooms = () => {
-  const [usersData, setUsersData] = useState<DataUsers[]>([]);
   const loading = useSelector((state: RootState) => state.loader.isLoading);
   const bookingData = useSelector(
     (state: RootState) => state.booked.bookingRoomData
